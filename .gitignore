@@ -1,0 +1,39 @@
+# ### IDE ###
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.project
+.settings/
+.classpath
+.factorypath
+
+# ### Build / Dependencies ###
+**/target/
+**/node_modules/
+**/.angular/
+**/dist/
+**/bin/
+**/out/
+.gradle/
+build/
+
+# ### Logs ###
+logs/
+*.log
+**/logs/
+
+# ### OS ###
+.DS_Store
+Thumbs.db
+
+# ### Project Specific ###
+uploads/
+**/uploads/
+.env
+.env.*
+
+# ### Database ###
+# ปกติเราจะเก็บ init.sql ไว้ แต่ข้อมูลในตาราง session ควรระวัง
+# mysql_data/ (ถ้ามีการ map volume แบบเครื่องใครเครื่องมัน)

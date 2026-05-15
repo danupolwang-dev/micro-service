@@ -1,0 +1,89 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      server:
+        webflux:
+          globalcors:
+            cors-configurations:
+              '[/**]':
+                allowedOrigins: "http://localhost:4200"
+                allowedMethods:
+                  - GET
+                  - POST
+                  - PUT
+                  - DELETE
+                  - OPTIONS
+                allowedHeaders: "*"
+                allow-credentials: true
+          routes:
+            # Security Service: จัดการแค่การยืนยันตัวตน (Login, Validate Token)
+            - id: security-service-route
+              uri: http://localhost:8081
+              predicates:
+                - Path=/api/auth/**
+
+            # User Service: จัดการข้อมูลทั้งหมดที่เกี่ยวกับ User, Roles, และ Menus
+
+            # 1. Public Routes (Login, Signup, Internal Details) - No Auth Required
+            - id: user-service-public
+              uri: http://localhost:8082
+              predicates:
+                - Path=/api/users/signup, /api/users/details/**
+
+            # 2. Admin Routes (Dashboard Stats, User Management) - Requires ADMIN Role
+            - id: user-service-admin
+              uri: http://localhost:8082
+              predicates:
+                - Path=/api/users/all, /api/users/stats/**, /api/users/recent, /api/users/{id}/status
+              filters:
+                - name: AuthFilter
+                  args:
+                    role: ADMIN
+
+            # 3. Authenticated Routes (General User Profile, Self Update) - Requires Valid Token (Any Role)
+            - id: user-service-general
+              uri: http://localhost:8082
+              predicates:
+                - Path=/api/users/**, /api/roles/**, /api/user-roles/**, /api/menus/**, /api/roles-menu/**
+              filters:
+                - name: AuthFilter
+                  args:
+                    role:  # Empty role means just require valid token
+
+            # Customer Service
+            - id: customer-service-route
+              uri: http://localhost:8083
+              predicates:
+                - Path=/api/customers/**
+
+            # Product Service
+            - id: product-service-route
+              uri: http://localhost:8084
+              predicates:
+                - Path=/api/products/**
+
+security:
+  service:
+    url: http://localhost:8081/api/auth/validate
+
+logging:
+  file:
+    # ใช้ ${user.dir} เพื่อระบุให้สร้างในโฟลเดอร์ปัจจุบันของโปรเจกต์
+    name: ${user.dir}/logs/gateway.log
+  pattern:
+    dateformat: yyyy-MM-dd HH:mm:ss
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      max-history: 7
+  level:
+    root: INFO
+    com.example.gateway: INFO
+
+jwt:
+  secret: mySecretKey12345678901234567890123456789012

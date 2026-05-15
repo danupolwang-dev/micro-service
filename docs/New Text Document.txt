@@ -1,12 +1,3 @@
-poly666666666
-
-test
-
-pass @A1234567a
-
-
-
-
 admin role 
 {
     "username": "admin",
@@ -23,3 +14,6 @@ admin role
     "username": "testusers",
   "password": "Password123"
 } 
+
+front-end angular 
+back-end spring boot

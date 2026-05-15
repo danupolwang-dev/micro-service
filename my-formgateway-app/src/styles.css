@@ -1,0 +1,87 @@
+:root {
+    --primary-gradient: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    --secondary-gradient: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.3);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --bg-main: #f8fafc;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    border-radius: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.2);
+}
+
+.text-gradient {
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.btn-premium {
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    border-radius: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-premium:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+    color: white;
+}
+
+/* Global Input & Placeholder Refining */
+.form-control,
+.form-select,
+.input-group-text {
+    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+    /* ปรับให้เข้มขึ้นเพื่อให้เห็นกรอบชัดเจน */
+    transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1) !important;
+}
+
+::placeholder {
+    color: #94a3b8 !important;
+    opacity: 0.45 !important;
+    /* ปรับให้จางลง (45%) เพื่อให้แยกจากข้อมูลจริงได้ง่าย */
+}

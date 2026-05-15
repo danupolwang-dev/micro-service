@@ -1,0 +1,65 @@
+<div class="customer-form-container container">
+    <!-- Header -->
+    <div class="mb-5 text-center">
+        <h2 class="text-gradient">{{ isEditMode ? 'Edit Customer Details' : 'Register New Customer' }}</h2>
+        <p class="text-secondary">Provide customer information to maintain accurate records.</p>
+    </div>
+
+    <form #customerForm="ngForm" (ngSubmit)="onSubmit()" class="glass-card form-glass mb-5">
+        <!-- Customer Information Section -->
+        <div class="section-title"><i class="fas fa-user-circle me-2"></i> Customer Information</div>
+
+        <div class="row g-4 mb-4">
+            <div class="col-md-6">
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" id="name" name="name" class="form-control" [(ngModel)]="customer.name" required
+                    #name="ngModel" placeholder="Enter customer name">
+                <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger small mt-1">
+                    Name is required
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" id="email" name="email" class="form-control" [(ngModel)]="customer.email" required
+                    email #email="ngModel" placeholder="customer@example.com">
+                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger small mt-1">
+                    Valid email is required
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-4">
+            <div class="col-md-6">
+                <label for="mobileNo" class="form-label">Mobile Number</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-end-0 text-muted">
+                        <i class="fas fa-phone"></i>
+                    </span>
+                    <input type="tel" id="mobileNo" name="mobileNo" class="form-control border-start-0"
+                        [(ngModel)]="customer.mobileNo" required #mobileNo="ngModel" placeholder="0XX-XXX-XXXX">
+                </div>
+                <div *ngIf="mobileNo.invalid && (mobileNo.dirty || mobileNo.touched)" class="text-danger small mt-1">
+                    Mobile number is required
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="d-flex justify-content-center gap-3 mt-5 pt-4 border-top">
+            <button type="button" class="btn-cancel" routerLink="/customers">
+                Cancel
+            </button>
+            <button type="submit" class="btn-premium px-5" [disabled]="customerForm.invalid || isLoading">
+                <i class="fas" [ngClass]="isLoading ? 'fa-spinner fa-spin' : (isEditMode ? 'fa-save' : 'fa-plus')"></i>
+                <span class="ms-2">{{ isLoading ? 'Processing...' : (isEditMode ? 'Update Customer' : 'Create Customer')
+                    }}</span>
+            </button>
+        </div>
+    </form>
+
+    <div *ngIf="isLoading && isEditMode" class="text-center py-5">
+        <div class="spinner-grow text-primary" role="status"></div>
+        <p class="mt-3 text-secondary">Loading customer data...</p>
+    </div>
+</div>

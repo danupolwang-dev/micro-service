@@ -1,0 +1,18 @@
+<div class="modal-overlay" *ngIf="isVisible" (click)="handleAction(false)">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h3>{{ data?.title }}</h3>
+        </div>
+        <div class="modal-body">
+            <p>{{ data?.message }}</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline-secondary" (click)="handleAction(false)">
+                {{ data?.cancelText || 'Cancel' }}
+            </button>
+            <button class="btn btn-danger" (click)="handleAction(true)">
+                {{ data?.confirmText || 'Confirm' }}
+            </button>
+        </div>
+    </div>
+</div>

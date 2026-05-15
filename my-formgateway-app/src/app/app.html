@@ -1,0 +1,14 @@
+<app-navbar></app-navbar>
+<app-toast></app-toast>
+<app-confirm-modal></app-confirm-modal>
+
+<!-- Loading Overlay -->
+<div *ngIf="loadingService.isLoading()" class="loading-overlay">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<div class="container mt-4">
+  <router-outlet></router-outlet>
+</div>

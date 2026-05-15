@@ -1,0 +1,42 @@
+<div class="login-container">
+  <div class="glass-card login-glass">
+    <div class="login-header">
+      <i class="fas fa-warehouse"></i>
+      <h2 class="text-gradient">Inventory & CRM Portal</h2>
+      <p class="text-secondary">Management Dashboard Login</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="mb-4">
+        <label for="username" class="form-label">Username</label>
+        <div class="input-group">
+          <span class="input-group-text bg-transparent border-end-0 text-muted"><i
+              class="fas fa-user-circle"></i></span>
+          <input type="text" id="username" formControlName="username" class="form-control border-start-0"
+            placeholder="your_username">
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="password" class="form-label">Password</label>
+        <div class="input-group">
+          <span class="input-group-text bg-transparent border-end-0 text-muted"><i class="fas fa-lock"></i></span>
+          <input type="password" id="password" formControlName="password" class="form-control border-start-0"
+            placeholder="••••••••">
+        </div>
+      </div>
+
+      <div *ngIf="loginError" class="alert alert-danger glass-card mb-4" role="alert">
+        <i class="fas fa-exclamation-circle me-1"></i> {{ loginError }}
+      </div>
+
+      <button type="submit" class="btn-premium w-100 py-3" [disabled]="!loginForm.valid">
+        <i class="fas fa-sign-in-alt me-2"></i> Log In
+      </button>
+    </form>
+
+    <div class="login-footer">
+      <p>Need access? <a routerLink="/register">Create an account</a></p>
+    </div>
+  </div>
+</div>

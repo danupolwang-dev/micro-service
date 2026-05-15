@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-lg navbar-glass sticky-top">
+  <div class="container-fluid px-4">
+    <a class="navbar-brand d-flex align-items-center" routerLink="/">
+      <div class="brand-gradient me-2">Inventory & CRM</div>
+    </a>
+
+    <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center">
+
+        <!-- Guest Links -->
+        <ng-container *ngIf="!authService.isLoggedIn()">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+          </li>
+          <li class="nav-item ms-lg-2">
+            <a class="btn-premium text-decoration-none px-4" routerLink="/register">Get Started</a>
+          </li>
+        </ng-container>
+
+        <!-- Authenticated Links (Now Dynamic!) -->
+        <ng-container *ngIf="authService.isLoggedIn()">
+
+          <!-- Loop through menus from the service -->
+          <ng-container *ngFor="let menu of menus$ | async">
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="menu.path" routerLinkActive="active">
+                <i [class]="menu.icon + ' me-1'"></i> {{ menu.name }}
+              </a>
+            </li>
+          </ng-container>
+
+          <li class="nav-item ms-lg-4 ps-lg-4 border-start d-none d-lg-block"></li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link d-flex align-items-center py-0" (click)="logout()" style="cursor: pointer;"
+              title="Logout">
+              <div class="user-avatar-mini">A</div>
+              <span class="d-lg-none">Logout</span>
+              <i class="fas fa-sign-out-alt ms-2 text-danger"></i>
+            </a>
+          </li>
+        </ng-container>
+
+      </ul>
+    </div>
+  </div>
+</nav>
